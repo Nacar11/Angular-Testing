@@ -18,9 +18,9 @@ export class NumberInputComponent implements OnInit {
       value: parseInt(value),
       which: which,
     };
-
+    
     which === 0
-      ? this.firstNumber.emit(emitValue)
-      : this.secondNumber.emit(emitValue);
+      ?this.firstNumber.emit(emitValue)
+      :this.secondNumber.emit(emitValue);
   }
 }
