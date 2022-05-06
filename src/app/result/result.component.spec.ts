@@ -20,49 +20,55 @@ describe('ResultComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ResultComponent);
     component = fixture.componentInstance;
-    
+    component.receive = 1;
     fixture.detectChanges();
    
     
   });
+  it('should call the compute function', () => {
+    let spyCompute = spyOn(component, "compute").and.callThrough();
+    component.compute();
+    fixture.detectChanges();
+    expect(spyCompute).toHaveBeenCalled();
+  });
   it('should call compute function with parameter 1 and the two numbers should be added together' , () => {
-    component.receive=1;
-    component.receive.first = '1';
-    component.receive.second = '2';
+    let spyCompute = spyOn(component, "compute").and.callThrough();
+    component.receive = {op: 1, first: 1, second: 1};
     fixture.detectChanges();
     component.compute();
     fixture.detectChanges();
-    expect(component.result).toEqual(3);
+    expect(component.result).toBe(2);
+    expect(spyCompute).toHaveBeenCalled();
     
   });
   it('should call compute function with parameter 2 and the two numbers should be subtracted together' , () => {
-    component.receive=2;
-    component.receive.first = '3';
-    component.receive.second = '1';
+    let spyCompute = spyOn(component, "compute").and.callThrough();
+    component.receive = {op: 2, first: 2, second: 1};
     fixture.detectChanges();
     component.compute();
     fixture.detectChanges();
-    expect(component.result).toEqual(2);
+    expect(component.result).toBe(1);
+    expect(spyCompute).toHaveBeenCalled();
+    
+  });
+  it('should call compute function with parameter 3 and the two numbers should be divided together' , () => {
+    let spyCompute = spyOn(component, "compute").and.callThrough();
+    component.receive = {op: 3, first: 9, second: 3};
+    fixture.detectChanges();
+    component.compute();
+    fixture.detectChanges();
+    expect(component.result).toBe(3);
+    expect(spyCompute).toHaveBeenCalled();
     
   });
   it('should call compute function with parameter 1 and the two numbers should be multiplied together' , () => {
-    component.receive=3;
-    component.receive.first = '1';
-    component.receive.second = '2';
+    let spyCompute = spyOn(component, "compute").and.callThrough();
+    component.receive = {op: 4, first: 18, second: 2};
     fixture.detectChanges();
     component.compute();
     fixture.detectChanges();
-    expect(component.result).toEqual(2);
-    
-  });
-  it('should call compute function with parameter 1 and the two numbers should be divided together' , () => {
-    component.receive=4;
-    component.receive.first = '4';
-    component.receive.second = '2';
-    fixture.detectChanges();
-    component.compute();
-    fixture.detectChanges();
-    expect(component.result).toEqual(2);
+    expect(component.result).toBe(36);
+    expect(spyCompute).toHaveBeenCalled();
     
   });
 });
